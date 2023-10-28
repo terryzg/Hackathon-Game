@@ -3,6 +3,11 @@ import sys
 
 pygame.init()
 
+pygame.display.set_caption("")
+
+background_sfx = pygame.mixer.Sound("Music.mp3")
+background_sfx.play()
+
 #Variables for the game window dimensions
 screen_w = 800
 screen_h = 600
@@ -32,3 +37,4 @@ while game:
 #When Game is exited
 pygame.quit()
 sys.exit()
+
