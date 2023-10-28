@@ -3,6 +3,7 @@ import sys
 import os
 from os import listdir
 from os.path import isfile, join
+import Player
 
 pygame.init()
 
@@ -14,14 +15,15 @@ background_sfx.play()
 #Variables for the game window dimensions
 screen_w = 800
 screen_h = 600
-fps = 60
+fps = 30
 velocity = 5
 
 window = pygame.display.set_mode((screen_w, screen_h))
+
+player = Player.Player()
     
 def draw(self, win):
     win.blit(self.image (self.rect.x, self.rect.y))
-
 
 def set_background(file): 
     #background = (173, 216, 230)
@@ -58,6 +60,12 @@ def main(window):
                 game = False
         
         draw(window, background, bg_image)
+        player.movement()
+        player.jump()
+    
+        pygame.draw.rect(window, (255, 255, 255), (player.x, player.y, player.width, player.height))
+        pygame.display.update()
+
     pygame.quit()
     quit()
     
