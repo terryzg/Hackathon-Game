@@ -7,9 +7,16 @@ pygame.init()
 screen_w = 800
 screen_h = 600
 
-#Important color codes as variables
-background = (173, 216, 230)
-ground = (0, 100, 0)
+#Important color codes as variable
+def set_background() -> None:
+    background = (173, 216, 230)
+    ground = (0, 100, 0)
+    screen.fill(background)
+
+    create_ground = pygame.Rect(0, 500, screen_w, 100)
+    pygame.draw.rect(screen, ground, create_ground)
+    pygame.display.flip()
+
 
 
 #Creating the game
@@ -21,13 +28,7 @@ while game:
         if event.type == pygame.QUIT:
             game = False
     
-    screen.fill(background)
-
-    create_ground = pygame.Rect(0, 500, screen_w, 100)
-    pygame.draw.rect(screen, ground, create_ground)
-
-    pygame.display.flip()
-
+    set_background()
 
 #When Game is exited
 pygame.quit()
