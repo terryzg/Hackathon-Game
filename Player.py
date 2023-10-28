@@ -2,7 +2,7 @@ import pygame
 
 class Player:
 
-    def __init__(self, x = 400, y = 400, width = 30, height = 30, move = 5, jumping = False, distance = 8, jumpCount = 8):
+    def __init__(self, x = 400, y = 485, width = 30, height = 30, move = 5, jumping = False, distance = 8, jumpCount = 8):
         #Player Details
         self.x = x
         self.y = y
@@ -19,16 +19,16 @@ class Player:
     def movement(self):
         keys = pygame.key.get_pressed()
 
-        if keys[pygame.K_LEFT] and self.x > 0:
+        if (keys[pygame.K_LEFT] or keys[pygame.K_a]) and self.x > 0:
             self.x -= self.move
-        if keys[pygame.K_RIGHT] and self.x < 800-self.width:
+        if (keys[pygame.K_RIGHT] or keys[pygame.K_d]) and self.x < 800-self.width:
             self.x += self.move 
         
     # Jumping
     def jump(self):
         keys = pygame.key.get_pressed()
 
-        if keys[pygame.K_UP]:
+        if keys[pygame.K_UP] or keys[pygame.K_w]:
             self.jumping = True
         if self.jumping:
             if self.jumpCount >= -1*self.distance:

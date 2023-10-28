@@ -13,9 +13,8 @@ background_sfx = pygame.mixer.Sound("Music.mp3")
 background_sfx.play()
 
 #Variables for the game window dimensions
-screen_w = 800
-screen_h = 600
-fps = 30
+screen_w, screen_h = 800, 600
+fps = 60
 velocity = 5
 
 window = pygame.display.set_mode((screen_w, screen_h))
@@ -30,7 +29,7 @@ def set_background(file):
     #ground = (0, 100, 0)
     #window.fill(background)
     image = pygame.image.load(join("assets", file))
-    __, __, width, height = image.get_rect()
+    x, y, width, height = image.get_rect()
     tiles = []
 
     for i in range (screen_w // width + 1):
@@ -43,13 +42,27 @@ def set_background(file):
 def draw(window, background, bg_img):
     for tile in background:
         window.blit(bg_img, tile)
-    pygame.display.update()
 
+
+#Draw floor
+floor = pygame.image.load("assets/Tilesets/TX Tileset Ground.png")
+floor_rect = floor.get_rect()
+floor_rect.topleft = (0, 515)
+
+def draw_floor():
+    window.blit(floor, floor_rect)
+    offset = 93
+    for i in range(8):
+        floor_rect.topleft = (offset, 515)
+        window.blit(floor, floor_rect)
+        offset += 93
+    offset = 93
+    floor_rect.topleft = (0, 515)
 
 #Creating the game
 def main(window):
     clock = pygame.time.Clock()
-    background, bg_image = set_background("tempBG.png")
+    background, bg_image = set_background("testBG.png")
 
     game = True
     while game:
@@ -62,9 +75,10 @@ def main(window):
         draw(window, background, bg_image)
         player.movement()
         player.jump()
-    
+        draw_floor()
         pygame.draw.rect(window, (255, 255, 255), (player.x, player.y, player.width, player.height))
-        pygame.display.update()
+
+        pygame.display.flip()
 
     pygame.quit()
     quit()
