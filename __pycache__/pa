@@ -1,0 +1,44 @@
+import pygame
+import sys
+
+pygame.init()
+
+pygame.display.set_caption("The Game")
+
+# Sound Effects
+pygame.mixer.music.load("Music.mp3")
+pygame.mixer.music.play(-1)  # Loop the music
+
+screen_w = 800
+screen_h = 600
+
+background = (173, 216, 230)
+ground = (0, 100, 0)
+
+screen = pygame.display.set_mode((screen_w, screen_h))
+
+font = pygame.font.Font(None, 36)
+
+health = 10
+
+game = True
+while game:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            game = False
+
+    # Clear the screen
+    screen.fill(background)
+
+    create_ground = pygame.Rect(0, 500, screen_w, 100)
+    pygame.draw.rect(screen, ground, create_ground)
+
+    health_text = font.render(f"Health: {health}", True, (0, 0, 0))
+    screen.blit(health_text, (10, 10))
+
+    # Update the display
+    pygame.display.update()
+
+# When the game is exited
+pygame.quit()
+sys.exit()
