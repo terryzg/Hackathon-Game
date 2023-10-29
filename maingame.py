@@ -97,6 +97,7 @@ def main(window):
         player.jump()
         draw_floor()
         pygame.draw.rect(window, (255, 255, 255), (player.x, player.y, player.width, player.height))
+        player.draw_health_bar(window)
 
 
     pygame.quit()

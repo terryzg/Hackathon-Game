@@ -1,15 +1,73 @@
-importTotal_health = 5
-health = int(input("input health 1-100")) # that is not in my game but for test purposes
-brb = "x"
-other_brb = "--"
+import pygame
+import sys
 
-#bar has to be 10 long so it is divinding and rounding 
-total_hp = Total_health % 5
+pygame.init()
 
-#multiples x to represent hp
-hp = health % 5
-end_bar = total_hp - hp
-bar = (hp * brb) 
-m = (end_bar * other_brb)
-#adds bars together
-print(bar + m)
+pygame.display.set_caption("The Game")
+
+# Sound Effects
+pygame.mixer.music.load("Music.mp3")
+pygame.mixer.music.play(-1)  # Loop the music
+
+screen_w = 800
+screen_h = 600
+
+background = (173, 216, 230)
+ground = (0, 100, 0)
+
+screen = pygame.display.set_mode((screen_w, screen_h))
+
+font = pygame.font.Font(None, 36)
+
+health = 10
+
+game = True
+while game:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            game = False
+
+    # Clear the screen
+    screen.fill(background)
+
+    create_ground = pygame.Rect(0, 500, screen_w, 100)
+    pygame.draw.rect(screen, ground, create_ground)
+
+    health_text = font.render(f"Health: {health}", True, (0, 0, 0))
+    screen.blit(health_text, (10, 10))
+
+    # Update the display
+    pygame.display.update()
+
+# When the game is exited
+pygame.quit()
+sys.exit()
+#Sound Effects
+background_sfx = pygame.mixer.Sound("Music.mp3")
+walking_sfx = pygame.mixer.Sound("walking.wav")
+shooting_sfx = pygame.mixer.Sound("gunshot.mp3")
+damaged_sfx = pygame.mixer.Sound("playerhurt.mp3")
+monster_spawn_sfx = pygame.mixer.Sound("monsterdeath.wav")
+monster_death_sfx = pygame.mixer.Sound("monsterdeath.wav")
+background_sfx.play()
+
+font = pygame.font.Font(None, 36)
+def text(text, font, text_col, x, y):
+    img = font.render(text, True, text_col)
+    screen.blit(img, (x,y))
+BLACK = (0, 0, 0)
+health = 10
+run = True
+
+game = True
+while game:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            game = False
+    health_text = font.render(f"Health: {health}", True, BLACK)
+    screen.blit(health_text, (10, 10))
+    pygame.display.update()
+    screen.fill(background)
+
+    create_ground = pygame.Rect(0, 500, screen_w, 100)
+    pygame.draw.rect(screen, ground, create_ground)

@@ -2,7 +2,7 @@ import pygame
 
 class Player:
 
-    def __init__(self, x = 400, y = 485, width = 30, height = 30, move = 5, jumping = False, distance = 8, jumpCount = 8, jump_duration=2, max_health=100):
+    def __init__(self, x = 400, y = 485, width = 30, height = 30, move = 5, jumping = False, distance = 8, jumpCount = 8, jump_duration=2, max_health=5):
         #Player Details
         self.x = x
         self.y = y
@@ -48,12 +48,6 @@ class Player:
     
 
     def draw_health_bar(self, win):
-        # Calculate the width of the health bar based on the current health
         health_bar_width = int((self.health / self.max_health) * self.width)
-
-        # Draw the health bar background
         pygame.draw.rect(win, (255, 0, 0), (self.x, self.y - 10, self.width, 5))
-
-        # Draw the current health bar
         pygame.draw.rect(win, (0, 255, 0), (self.x, self.y - 10, health_bar_width, 5))
-    
