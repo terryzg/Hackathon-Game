@@ -1,0 +1,32 @@
+import pygame
+
+def on_release(event):
+  # Stop the audio
+  pygame.mixer.music.stop()
+
+# Initialize pygame
+pygame.init()
+
+# Create a mixer object
+mixer = pygame.mixer
+
+# Load the audio file
+sound = mixer.Sound("walking.wav")
+
+# Play the audio
+sound.play()
+
+# Set the event handler for the release event
+pygame.key.set_release_event_handler(on_release)
+
+# Run the main loop
+while True:
+  # Check for events
+  for event in pygame.event.get():
+    # If the event is a release event, stop the audio
+    if event.type == pygame.KEYDOWN:
+      if event.key == pygame.K_SPACE:
+        sound.stop()
+
+  # Update the display
+  pygame.display.update()

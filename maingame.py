@@ -7,7 +7,7 @@ import Player
 
 pygame.init()
 
-pygame.display.set_caption("")
+pygame.display.set_caption("Test game")
 
 #Sound Effects
 background_sfx = pygame.mixer.Sound("Music.mp3")
@@ -15,7 +15,7 @@ walking_sfx = pygame.mixer.Sound("walking.wav")
 shooting_sfx = pygame.mixer.Sound("gunshot.mp3")
 damaged_sfx = pygame.mixer.Sound("playerhurt.mp3")
 monster_spawn_sfx = pygame.mixer.Sound("monsterdeath.wav")
-monster_death_sfx = pygame.mixer.Sound("monsterdeath.wav")
+background_sfx.set_volume(0.2)
 background_sfx.play()
 
 #Variables for the game window dimensions
@@ -29,6 +29,10 @@ player = Player.Player()
     
 def draw(self, win):
     win.blit(self.image (self.rect.x, self.rect.y))
+    self.hitbox = (self.x + 15, self.y, 30, 10)
+    pygame.draw.rect(win, (255, 0, 0), (self.x + 15, self.y, 30, 10))
+    pygame.draw.rect(win, (255, 0, 0), (self.x + 15, self.y, 30, 10))
+    pygame.draw.rect(win, (0, 0, 0), self.hitbox, 1)
 
 def set_background(file): 
     #background = (173, 216, 230)
@@ -65,24 +69,39 @@ def draw_floor():
     offset = 93
     floor_rect.topleft = (0, 515)
 
+
+font = pygame.font.Font(None, 36)
+def text(text, font, text_col, x, y):
+    img = font.render(text, True, text_col)
+    window.blit(img, (x,y))
+BLACK = (0, 0, 0)
+health = 10
+
 #Creating the game
-screen = pygame.display.set_mode((screen_w, screen_h))
+def main(window):
+    clock = pygame.time.Clock()
+    background, bg_image = set_background("testBG.png")
 
-game = True
-while game:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            game = False
+    game = True
+    while game:
+        clock.tick(fps)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                game = False
+        health_text = font.render(f"Health: {health}", True, BLACK)
+        window.blit(health_text, (10, 10))
+        pygame.display.update()
+        draw(window, background, bg_image)
+        player.movement()
+        player.jump()
+        draw_floor()
+        pygame.draw.rect(window, (255, 255, 255), (player.x, player.y, player.width, player.height))
+
+
+    pygame.quit()
+    quit()
     
-    screen.fill(background)
 
-    create_ground = pygame.Rect(0, 500, screen_w, 100)
-    pygame.draw.rect(screen, ground, create_ground)
-
-    pygame.display.flip()
-
-
-#When Game is exited
-pygame.quit()
-sys.exit()
-
+if __name__ == "__main__":
+    main(window)
